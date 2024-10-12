@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reforço Escolar em Matemática</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Nunito:wght@300;600&display=swap" rel="stylesheet">
+    <style>
+        /* Cores e estilos principais */
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #f5f5dc, #d0e7ff);
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        /* Cabeçalho */
+        header {
+            background-color: #1e90ff;
+            color: #ffffff;
+            width: 100%;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        header h1 {
+            font-family: 'Nunito', sans-serif;
+            font-weight: 700;
+            margin: 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px;
+            padding: 20px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+        }
+        h2 {
+            color: #1e90ff;
+            font-family: 'Nunito', sans-serif;
+            font-weight: 600;
+        }
+        .btn-contato {
+            background-color: #1e90ff;
+            color: #ffffff;
+            padding: 12px 25px;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 5px;
+            display: inline-block;
+            margin-top: 20px;
+            transition: background 0.3s;
+        }
+        .btn-contato:hover {
+            background-color: #0c66c2;
+        }
+        /* Chatbot Estilos */
+        #chatbot {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            max-width: 300px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 10px;
+            overflow: hidden;
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        #chatbot-header {
+            background-color: #1e90ff;
+            color: #ffffff;
+            padding: 10px;
+            text-align: center;
+            font-weight: bold;
+        }
+        #chatbot-messages {
+            padding: 10px;
+            max-height: 300px;
+            overflow-y: auto;
+            font-size: 14px;
+        }
+        .message {
+            margin: 5px 0;
+        }
+        .message.user {
+            text-align: right;
+            color: #333;
+        }
+        .message.bot {
+            text-align: left;
+            color: #1e90ff;
+        }
+        #chatbot-input {
+            display: flex;
+            padding: 10px;
+            background-color: #f5f5f5;
+        }
+        #chatbot-input input {
+            width: 80%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        #chatbot-input button {
+            width: 20%;
+            background-color: #1e90ff;
+            color: #ffffff;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        #open-chatbot {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #1e90ff;
+            color: #ffffff;
+            border: none;
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Reforço Escolar em Matemática</h1>
+        <p>Aprenda Matemática com as professoras Carolina e Fernanda</p>
+    </header>
+
+    <div class="container">
+        <!-- Conteúdo principal aqui... -->
+    </div>
+
+    <footer>
+        <p>Contato: <a href="mailto:soarescarolina31@gmail.com">soarescarolina31@gmail.com</a></p>
+        <p>&copy; 2024 Reforço Escolar em Matemática</p>
+    </footer>
+
+    <!-- Botão para abrir o chatbot -->
+    <button id="open-chatbot">💬</button>
+
+    <!-- Estrutura do chatbot -->
+    <div id="chatbot">
+        <div id="chatbot-header">Assistente de Matemática</div>
+        <div id="chatbot-messages"></div>
+        <div id="chatbot-input">
+            <input type="text" id="user-input" placeholder="Digite sua pergunta..." />
+            <button onclick="sendMessage()">Enviar</button>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript para o chatbot
+        const chatbot = document.getElementById("chatbot");
+        const openChatbotButton = document.getElementById("open-chatbot");
+        const messagesContainer = document.getElementById("chatbot-messages");
+
+        openChatbotButton.addEventListener("click", () => {
+            chatbot.style.display = chatbot.style.display === "none" ? "flex" : "none";
+        });
+
+        function sendMessage() {
+            const userInput = document.getElementById("user-input");
+            const userMessage = userInput.value;
+            if (userMessage.trim() === "") return;
+
+            addMessage(userMessage, "user");
+            userInput.value = "";
+
+            // Respostas automáticas
+            setTimeout(() => {
+                let botResponse;
+                if (userMessage.toLowerCase().includes("preço") || userMessage.toLowerCase().includes("pacote")) {
+                    botResponse = "Os preços dos pacotes são: Básico (R$150) e Premium (R$250).";
+                } else if (userMessage.toLowerCase().includes("contato")) {
+                    botResponse = "Você pode entrar em contato pelo WhatsApp no link na página.";
+                } else {
+                    botResponse = "Desculpe, ainda estou aprendendo e não entendi sua pergunta.";
+                }
+                addMessage(botResponse, "bot");
+            }, 1000);
+        }
+
+        function addMessage(message, sender) {
+            const messageElement = document.createElement("div");
+            messageElement.className = `message ${sender}`;
+            messageElement.innerText = message;
+            messagesContainer.appendChild(messageElement);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+        }
+    </script>
+
+</body>
+</html>
